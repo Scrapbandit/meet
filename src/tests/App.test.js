@@ -4,7 +4,6 @@ import App from '../App';
 import EventList from '../EventList';
 import CitySearch from '../CitySearch';
 import NumberOfEvents from '../NumberOfEvents';
-import Event from '../Event';
 import { mockData } from '../mock-data';
 import { extractLocations, getEvents } from '../api';
 
@@ -79,7 +78,7 @@ test('passing number of events', () => {
     const AppWrapper = mount(<App />);
     const AppNumberOfEventsState = AppWrapper.state('numberOfEvents');
     expect(AppNumberOfEventsState).not.toEqual(undefined);
-    expect(AppWrapper.find(EventList).props().numberOfEvents).toEqual(32);
+    expect(AppWrapper.find(EventList).props().numberOfEvents).toEqual(12);
     AppWrapper.unmount();
    });
   });      

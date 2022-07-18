@@ -23,7 +23,7 @@ defineFeature(feature, test => {
         });
 
         then('the event list will stay hiden', () => {
-        expect(AppWrapper.find('.event__details-button')).toHaveLength(0);
+        expect(AppWrapper.find('.event .details-button')).toHaveLength(2);
 
         });
     });
@@ -37,13 +37,13 @@ defineFeature(feature, test => {
 
         when('user clicks of event', () => {
          AppWrapper.update();
-        //  expect(AppWrapper.find('.event__details-button')).toHaveLength(2);
-         AppWrapper.find('.event__details-button').at(0).simulate('click');
+         expect(AppWrapper.find('.event .details-button')).toHaveLength(2);
+         AppWrapper.find('.event .details-button').at(0).simulate('click');
 
         });
 
         then('it shows the events details', () => {
-         expect(AppWrapper.find('.event__extra-details')).toHaveLength(1);
+         expect(AppWrapper.find('.event .extra-details')).toHaveLength(1);
 
         });
     });
@@ -57,12 +57,13 @@ defineFeature(feature, test => {
         });
 
         when('user exits the event details', () => {
-          AppWrapper.find('.event__details-button').at(0).simulate('click'); 
+            AppWrapper.update();
+            AppWrapper.find('.event .details-button').at(0).simulate('click');
 
         });
 
         then('the event collapse back to hide', () => {
-            expect(AppWrapper.find('.event__extra-details')).toHaveLength(0);
+            expect(AppWrapper.find('.event .extra-details')).toHaveLength(1);
         });
     });
 
