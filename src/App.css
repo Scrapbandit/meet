@@ -211,3 +211,17 @@ input[type="number"] {
     margin: 0 auto;
   }
 }
+
+.Alert {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-weight: 700;
+  z-index: 10;
+}
+
+@media screen and (max-width: 450px) {
+  .EventList {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
