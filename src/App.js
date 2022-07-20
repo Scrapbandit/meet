@@ -7,6 +7,7 @@ import NumberOfEvents from './NumberOfEvents';
 import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
 import WelcomeScreen from './WelcomeScreen';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import EventGenre from './EventGenre';
 
 class App extends Component {
   state = {
@@ -71,7 +72,7 @@ class App extends Component {
   render() {
     // if (this.state.showWelcomeScreen === undefined)
     //   console.log("state.locations", this.state.locations);
-    const { locations, numberOfEvents } = this.state;
+    const { locations, numberOfEvents, events } = this.state;
     return (
       <div className="App">
         <h1>Meet App</h1>
@@ -87,16 +88,23 @@ class App extends Component {
         />
         <h4>Events in each city</h4>
 
+
+        <div className='data-vis-wrapper'>
+        <EventGenre event={events} />
         <ResponsiveContainer height={400} >
          <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20, }}>
           <CartesianGrid />
           <XAxis type="category" dataKey="city" name="city" />
-          <YAxis allowDecimals={false}
-           type="number" dataKey="number" name="number of events" />
+          <YAxis 
+          allowDecimals={false}
+           type="number" 
+           dataKey="number" 
+           name="number of events" />
            <Tooltip cursor={{ strokeDasharray: '3 3' }} />
           <Scatter data={this.getData()} fill="#8884d8" />
         </ScatterChart>
        </ResponsiveContainer>
+      </div>
 
         <EventList
           events={this.state.events}
