@@ -20,7 +20,7 @@
     return locations;
   };
 
-  const checkToken = async (accessToken) => {
+  export const checkToken = async (accessToken) => {
     const result = await fetch(
       `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
     )
@@ -72,7 +72,7 @@
     // console.log(events);
     return data ? JSON.parse(data).events:[];;
   }
-  
+
    const token = await getAccessToken();
 
    if (token) {

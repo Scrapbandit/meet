@@ -4,22 +4,35 @@ import EventList from './EventList';
 import CitySearch from './CitySearch';
 import Event from './Event';
 import NumberOfEvents from './NumberOfEvents';
-import { getEvents, extractLocations  } from './api';
+import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
+import WelcomeScreen from './WelcomeScreen';
 
 
 class App extends Component {
   state = {
     events: [],
     locations: [],
-    numberOfEvents: 12
+    numberOfEvents: 12,
+    showWelcomeScreen: undefined,
   };
 
-  componentDidMount() {
-    getEvents().then((events) => {
-      this.setState({ events, locations: extractLocations(events) });
-    });
+  async componentDidMount() {
+    this.mounted = true;
+    const accessToken = localStorage.getItem("access_token");
+    const isTokenValid = (await checkToken(accessToken)).error ? false : true;
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = searchParams.get("code");
+    this.setState({ showWelcomeScreen: !(code || isTokenValid) });
+    if ((code || isTokenValid) && this.mounted) {
+      getEvents().then((events) => {
+        if (this.mounted) {
+          this.setState({ events, locations: extractLocations(events) });
+        }
+      });
+    }
   }
-  componentWillUnmount(){
+
+  componentWillUnmount() {
     this.mounted = false;
   }
 
@@ -32,29 +45,27 @@ class App extends Component {
   };
 
   updateEvents = (location, eventCount) => {
-    console.log("Hey update events is called", location, eventCount)
+    console.log("Hey update events is called", location, eventCount);
     getEvents().then((events) => {
-      const locationEvents = 
-      location === 'all'
-       ?
-      events :
-      events.filter((event) => event.location === location);
+      const locationEvents =
+        location === "all"
+          ? events
+          : events.filter((event) => event.location === location);
       this.setState({
         events: locationEvents.slice(0, this.state.numberOfEvents),
         numberOfEvents: eventCount,
       });
     });
   };
-  
-
 
   render() {
-    console.log("state.locations", this.state.locations)
+    if (this.state.showWelcomeScreen === undefined)
+      console.log("state.locations", this.state.locations);
     return (
       <div className="App">
-        <CitySearch 
-        locations={this.state.locations} 
-        updateEvents={this.updateEvents}
+        <CitySearch
+          locations={this.state.locations}
+          updateEvents={this.updateEvents}
         />
 
         <NumberOfEvents
@@ -62,10 +73,16 @@ class App extends Component {
           updateNumberOfEvents={this.updateNumberOfEvents}
         />
 
-        <EventList 
+        <EventList
           events={this.state.events}
           numberOfEvents={this.state.numberOfEvents}
-        /> 
+        />
+        <WelcomeScreen
+          showWelcomeScreen={this.state.showWelcomeScreen}
+          getAccessToken={() => {
+            getAccessToken();
+          }}
+        />
       </div>
     );
   }
