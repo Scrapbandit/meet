@@ -103,7 +103,7 @@ class App extends Component {
         />
         <div className="data-vis-wrapper">
           <div className="pie-wrapper">
-            <EventGenre events={this.state.events} />
+            <EventGenre locations={this.state.locations} events={this.state.events} />
           </div>
           <div className="scatter-wrapper">
             <ResponsiveContainer>

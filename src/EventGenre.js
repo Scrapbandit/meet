@@ -5,7 +5,7 @@ const EventGenre = ({ locations ,events }) => {
   console.log("Event Genere", locations, events)
  const [data, setData] = useState([]);
  const colors = ['#8884d8'];
- useEffect(() => { setData(() => getData());}, [locations, events]);
+ useEffect(() => { setData(() => { getData(); console.log("Data for Pie", data) });}, [locations, events]);
 
  const getData = () => {
     const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
