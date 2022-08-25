@@ -95,15 +95,27 @@ class App extends Component {
           }}
         />
 
-        <h1>Come and see what's going on</h1>
+        <h1>Meet App</h1>
+        <h4>Choose your nearest city</h4>
 
         <CitySearch
           locations={this.state.locations}
           updateEvents={this.updateEvents}
         />
+        
+
+        <NumberOfEvents
+          numberOfEvents={this.state.numberOfEvents}
+          updateNumberOfEvents={this.updateNumberOfEvents}
+        />
+        <h4>Events in each city</h4>
+
         <div className="data-vis-wrapper">
           <div className="pie-wrapper">
-            <EventGenre locations={this.state.locations} events={this.state.events} />
+            <EventGenre
+              locations={this.state.locations}
+              events={this.state.events}
+            />
           </div>
           <div className="scatter-wrapper">
             <ResponsiveContainer>
@@ -131,7 +143,8 @@ class App extends Component {
             </ResponsiveContainer>
           </div>
         </div>
-        <EventList events={this.state.events} />
+        <EventList events={this.state.events}
+         />
 
         <NumberOfEvents
           events={this.state.events}
