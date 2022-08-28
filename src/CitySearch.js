@@ -33,7 +33,7 @@ class CitySearch extends Component {
         };
 
 handleItemClicked = (suggestion) => {
-  console.log("Handle item")
+  console.log("Handle item", suggestion)
       this.setState({
       query: suggestion,
       suggestions: [],
