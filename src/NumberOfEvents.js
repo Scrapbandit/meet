@@ -8,7 +8,6 @@ class NumberOfEvents extends Component {
   };
 
   handleInputChanged = (event) => {
-    alert(1);
     const value = event.target.value;
     console.log("value: ", value);
 
@@ -23,7 +22,7 @@ class NumberOfEvents extends Component {
         errorText: "",
       });
     }
-    this.props.updateNumberOfEvents("undefined", value);
+    this.props.updateEvents("undefined", value);
   };
 
   render() {

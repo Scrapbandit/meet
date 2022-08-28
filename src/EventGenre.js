@@ -26,7 +26,7 @@ return (
             cy={200}
             labelLine={false}
             outerRadius={80}
-            fill='#fff'
+            fill='#666'
             dataKey='value'
             nameKey={'genre'}
             label={({ name, percent }) => `${name} ${( percent * 100).toFixed (0)}%`}>
