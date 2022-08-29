@@ -5,7 +5,7 @@ import { InfoAlert } from './Alert';
 
 class CitySearch extends Component {
     state = {
-        query: '',
+        query: "all",
         suggestions: [],
         showSuggestions: false,
         infoText: ''
